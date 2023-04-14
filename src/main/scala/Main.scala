@@ -5,7 +5,7 @@ object Main {
     val count = new WordCount();
     count.countWords();
 
-    val path = java.nio.file.Paths.get("C:\\Users\\Akhil\\IdeaProjects\\ProjectRobinHood\\src\\main\\scala\\WordCount.scala")
+    val path = java.nio.file.Paths.get("src/main/scala/WordCount.scala")
     val bytes = java.nio.file.Files.readAllBytes(path)
     val text = new String(bytes, "UTF-8")
     val input = Input.VirtualFile(path.toString, text)
