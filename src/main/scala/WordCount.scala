@@ -10,7 +10,7 @@ class WordCount(){
      val sc = new SparkContext(conf)
 
      // Load the text into a Spark RDD, which is a distributed representation of each line of text
-     val textFile = sc.textFile("C://Users//Akhil//Desktop//scalaDemo.txt")
+     val textFile = sc.textFile("src/main/scala/scalaDemo.txt")
 
      //word count
      val counts = textFile.flatMap(line => line.split(" "))
