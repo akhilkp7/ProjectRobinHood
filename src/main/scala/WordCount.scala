@@ -1,4 +1,5 @@
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
 
 class WordCount(){
    def countWords(): Unit = {
@@ -13,12 +14,10 @@ class WordCount(){
      val textFile = sc.textFile("src/main/scala/scalaDemo.txt")
 
      //word count
-     val counts = textFile.flatMap(line => line.split(" "))
-       .map(word => (word, 1))
-       .reduceByKey(_ + _)
+     val counts = textFile.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)
 
      counts.foreach(println)
-     System.out.println("Total words: " + counts.count())
+//     System.out.println("Total words: " + counts.count())
      //    counts.saveAsTextFile("C://Users//Akhil//Desktop//scalaOutputs//test3.txt")
   }
 }
