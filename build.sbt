@@ -18,3 +18,5 @@ libraryDependencies += "org.apache.spark" %% "spark-hive" % "3.3.2"
 
 // build.sbt
 libraryDependencies += "org.scalameta" %% "scalameta" % "4.7.6"
+
+libraryDependencies += "org.apache.spark" %% "spark-streaming" % "3.3.2"

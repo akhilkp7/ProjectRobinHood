@@ -6,13 +6,13 @@ object Main {
     val count = new WordCount();
     count.countWords();
 
-    val path = java.nio.file.Paths.get("src/main/scala/WordCount.scala")
+    val path = java.nio.file.Paths.get("C:\\Users\\Akhil\\Desktop\\scalaWordCount.scala")
     val bytes = java.nio.file.Files.readAllBytes(path)
     val text = new String(bytes, "UTF-8")
     val input = Input.VirtualFile(path.toString, text)
     val exampleTree = input.parse[Source].get
-//    val outputFile = new File("src/main/scala/WordCount_Transformed.scala")
-//    val writer = new PrintWriter(outputFile)
+    val outputFile = new File("src/main/scala/WordCount_Transformed.scala")
+    val writer = new PrintWriter(outputFile)
 //    print(exampleTree.syntax)
     print(exampleTree.structure)
     println()
@@ -76,11 +76,11 @@ ssc.start()
 
 
     println(ImportTransformer(exampleTree))
-    /*    val transformedTree = ImportTransformer(exampleTree)
+       val transformedTree = ImportTransformer(exampleTree)
+
         writer.write(transformedTree.syntax)
         writer.close()
-
-        println(s"Transformed code written to: ${outputFile.getAbsolutePath}")*/
+        println(s"Transformed code written to: ${outputFile.getAbsolutePath}")
 
   }
 }
