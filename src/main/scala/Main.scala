@@ -9,8 +9,8 @@ object Main {
     val text = new String(bytes, "UTF-8")
     val input = Input.VirtualFile(path.toString, text)
     val exampleTree = input.parse[Source].get
-    /*val outputFile = new File("src/main/scala/WordCount_Transformed.scala")
-    val writer = new PrintWriter(outputFile)*/
+    val outputFile = new File("src/main/scala/TransformedCode/WordCount_Transformed.scala")
+    val writer = new PrintWriter(outputFile)
 //    print(exampleTree.syntax)
     print(exampleTree.structure)
     println()
@@ -26,8 +26,6 @@ object Main {
       case Term.ArgClause(List(Lit.String("src/main/scala/scalaDemo.txt")), None) => Term.ArgClause(List(Lit.String("localhost"), Lit.Int(9999)), None)
       case Term.Select(Term.Name("textFile"), Term.Name("flatMap")) => Term.Select(Term.Name("lines"), Term.Name("flatMap"))
       case Pat.Var(Term.Name("counts")) => Pat.Var(Term.Name("wordDstream"))
-
-
 
 
       case other => other
@@ -52,11 +50,6 @@ ssc.start()
     object ImportTransformer extends Transformer {
       override def apply(tree: Tree): Tree = tree match {
 
-        case q"import org.apache.spark.SparkContext" => q"import org.apache.spark.streaming._"
-
-        case q"val $name = new SparkContext($conf)" =>
-          q"val sparkConf = new SparkConf().setAppName(${Lit.String("StatefulNetworkWordCount")})"
-
         case q"""  counts.foreach(println) """ =>
           Defn.Val(Nil, List(Pat.Var(Term.Name("mappingFunc"))), None,
             Term.Function(Term.ParamClause(List(Term.Param(Nil, Term.Name("word"), Some(Type.Name("String")), None),
@@ -72,20 +65,24 @@ ssc.start()
                 Term.Name("output")))))
         case q"val wordDstream = $dstreamExpr.reduceByKey(_ + _)" =>
           q"val wordDstream = $dstreamExpr"
-
-
+        case q"""System.out.println("Total words: " + counts.count())""" => q"""
+                    val stateDstream = wordDstream.mapWithState(
+                    StateSpec.function(mappingFunc))
+                  stateDstream.print()
+                  sc.checkpoint(".")
+                  sc.start()
+                  sc.awaitTermination()
+                   """
         case other => super.apply(other)
       }
     }
 
-  println("\n")
 
     println(ImportTransformer(newTree))
-       val transformedTree = ImportTransformer(exampleTree)
-
-       /* writer.write(transformedTree.syntax)
+    val transformedTree = ImportTransformer(newTree)
+        writer.write(transformedTree.syntax)
         writer.close()
-        println(s"Transformed code written to: ${outputFile.getAbsolutePath}")*/
+        println(s"Transformed code written to: ${outputFile.getAbsolutePath}")
 
   }
 }
