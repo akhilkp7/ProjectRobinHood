@@ -1,7 +1,7 @@
 package BatchWordCount
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming._
-object SampleSparkApp {
+object WordCountStreaming {
   def main(args: Array[String]) = {
     val conf = new SparkConf()
     conf.setMaster("local[2]").setAppName("Word Count example").set("spark.driver.bindAddress", "127.0.0.1")

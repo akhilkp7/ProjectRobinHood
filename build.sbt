@@ -15,6 +15,7 @@ libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.3.2"
 
 // https://mvnrepository.com/artifact/org.apache.spark/spark-hive
 libraryDependencies += "org.apache.spark" %% "spark-hive" % "3.3.2"
+libraryDependencies += "com.storm-enroute" %% "scalameter" % "0.19"
 
 // build.sbt
 libraryDependencies += "org.scalameta" %% "scalameta" % "4.7.6"

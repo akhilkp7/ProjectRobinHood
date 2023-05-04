@@ -36,4 +36,8 @@ object StatefulNetworkWordCount {
     ssc.start()
     ssc.awaitTermination()
   }
+
+
+
+
 }

@@ -1,0 +1,1 @@
+["BatchWordCount.SampleSparkApp","BatchWordCount.WordCountStreaming","Main","org.apache.spark.examples.streaming.StatefulNetworkWordCount","org.apache.spark.examples.streaming.StatefulNetworkWordCount.RangeBenchmark"]
