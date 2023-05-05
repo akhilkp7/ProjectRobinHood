@@ -25,7 +25,7 @@ object StatefulNetworkWordCountBenchmark extends Bench.LocalTime {
   val initialRDD = ssc.sparkContext.parallelize(List(("hello", 1), ("world", 1)))
 
   // Define the ranges to be used for performance evaluation
-  val ranges = Gen.range("range")(1, 10, 1)
+  val ranges = Gen.range("range")(5, 50, 5)
 
   performance of "flatMap" in {
     measure method "flatMap" in {
